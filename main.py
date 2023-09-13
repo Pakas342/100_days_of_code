@@ -1,34 +1,36 @@
-# student_dict = {
-#     "student": ["Angela", "James", "Lily"],
-#     "score": [56, 76, 98]
-# }
+from turtle import Turtle, Screen
 
-# #Looping through dictionaries:
-# for (key, value) in student_dict.items():
-#     #Access key and value
-#     pass
-#
-import pandas
-# student_data_frame = pandas.DataFrame(student_dict)
-#
-# #Loop through rows of a data frame
-# for (index, row) in student_data_frame.iterrows():
-#     #Access index and row
-#     #Access row.student or row.score
-#     pass
+juan = Turtle()
+screen = Screen()
 
-# Keyword Method with iterrows()
-# {new_key:new_value for (index, row) in df.iterrows()}
 
-#T ODO 1. Create a dictionary in this format:
-# {"A": "Alfa", "B": "Bravo"}
+def move_forward():
+    juan.forward(10)
 
-nato_data_frame = pandas.read_csv("nato_phonetic_alphabet.csv")
 
-phonetic_alphabet_dict = {item.letter: item.code for (index, item) in nato_data_frame.iterrows()}
+def move_backward():
+    juan.backward(10)
 
-# TODO 2. Create a list of the phonetic code words from a word that the user inputs.
 
-user_word = input("Type the word you want to construct phonetically: ").upper()
-user_phoneme = [phonetic_alphabet_dict[letter] for letter in user_word]
-print(user_phoneme)
+def move_right():
+    juan.right(10)
+
+
+def move_left():
+    juan.left(10)
+
+
+def back_to_start():
+    juan.up()
+    juan.clear()
+    juan.home()
+    juan.down()
+
+
+screen.listen()
+screen.onkeypress(key="w", fun=move_forward)
+screen.onkeypress(key="s", fun=move_backward)
+screen.onkeypress(key="d", fun=move_right)
+screen.onkeypress(key="a", fun=move_left)
+screen.onkeypress(key="c", fun=back_to_start)
+screen.exitonclick()
