@@ -1,36 +1,16 @@
-from turtle import Turtle, Screen
+import tkinter
 
-juan = Turtle()
-screen = Screen()
+window = tkinter.Tk()
+window.title("My First GUI program")
+window.minsize(width=500, height=300)
 
+# Create a label
 
-def move_forward():
-    juan.forward(10)
-
-
-def move_backward():
-    juan.backward(10)
+my_label = tkinter.Label(text="I'm a label", font=("Arial", 24, "bold"))
+my_label.pack()
 
 
-def move_right():
-    juan.right(10)
 
 
-def move_left():
-    juan.left(10)
 
-
-def back_to_start():
-    juan.up()
-    juan.clear()
-    juan.home()
-    juan.down()
-
-
-screen.listen()
-screen.onkeypress(key="w", fun=move_forward)
-screen.onkeypress(key="s", fun=move_backward)
-screen.onkeypress(key="d", fun=move_right)
-screen.onkeypress(key="a", fun=move_left)
-screen.onkeypress(key="c", fun=back_to_start)
-screen.exitonclick()
+window.mainloop()
