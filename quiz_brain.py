@@ -1,33 +1,26 @@
-import pandas
-import turtle as t
-FONT = ("Arial", 5, "normal")
-FILEPATH = "50_states.csv"
+import html
 
 
-class Brain:
-    def __init__(self):
-        self.pencil = t.Turtle()
-        self.pencil.penup()
-        self.pencil.hideturtle()
-        self.data = pandas.read_csv(FILEPATH)
-        self.already_guessed = []
+class QuizBrain:
+
+    def __init__(self, q_list):
+        self.question_number = 0
+        self.score = 0
+        self.question_list = q_list
+        self.current_question = None
+
+    def still_has_questions(self):
+        return self.question_number < len(self.question_list)
+
+    def next_question(self):
+        self.current_question = self.question_list[self.question_number]
+        self.question_number += 1
+        return f"Q.{self.question_number}: {html.unescape(self.current_question.text)}"
 
     def check_answer(self, user_answer):
-        if len(self.data[self.data.state == user_answer]) > 0 and user_answer not in self.already_guessed:
-            state_data = self.data[self.data.state == user_answer]
-            position_data = (state_data.x.item(), state_data.y.item())
-            self.pencil.goto(position_data)
-            self.pencil.write(arg=user_answer, font=FONT)
-            self.already_guessed.append(user_answer)
-
-    def user_score(self):
-        return len(self.already_guessed)
-
-    def user_gave_up(self):
-        not_guessed_states = []
-        state_list = self.data["state"].to_list()
-        for state in state_list:
-            if state not in self.already_guessed:
-                not_guessed_states.append(state)
-        return not_guessed_states
-
+        correct_answer = self.current_question.answer
+        if user_answer.lower() == correct_answer.lower():
+            self.score += 1
+            return True
+        else:
+            return False
