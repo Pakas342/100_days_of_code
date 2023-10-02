@@ -1,38 +1,29 @@
-import pandas
-import smtplib
-import datetime as dt
-import os
-import random
+from tkinter import *
+import requests
 
-# 1. Update the birthdays.csv
-
-# DONE
-
-# 2. Check if today matches a birthday in the birthdays.csv
-
-BIRTHDAY_CSV_DIRECTORY = "birthdays.csv"
-LETTERS_DIRECTORY = "letter_templates/"
-MY_EMAIL = "jcbp1999@gmail.com"
-PASSWORD = "cwch ujti nmni lohz"
-
-letters = os.listdir(LETTERS_DIRECTORY)
-
-now = dt.datetime.now()
-now_day = now.day
-now_month = now.month
-birthday_data = pandas.read_csv(BIRTHDAY_CSV_DIRECTORY).to_dict(orient="records")
-for birthday in birthday_data:
-    if birthday["month"] == now_month and birthday["day"] == now_day:
-        letter = random.choice(letters)
-        with open(f"{LETTERS_DIRECTORY}{letter}", mode="r") as template:
-            birthday_template = template.read()
-        birthday_letter = birthday_template.replace("[NAME]", birthday["name"])
-        with smtplib.SMTP("smtp.gmail.com") as connection:
-            connection.starttls()
-            connection.login(user=MY_EMAIL, password=PASSWORD)
-            connection.sendmail(from_addr=MY_EMAIL,
-                                to_addrs=birthday["email"],
-                                msg=f"Subject: Happy birthday!\n\n{birthday_letter}")
+KANYE_URL = "https://api.kanye.rest"
 
 
-# 4. Send the letter generated in step 3 to that person's email address.
+def get_quote():
+    response = requests.get(KANYE_URL)
+    quote = response.json()["quote"]
+    canvas.itemconfig(quote_text, text=quote)
+
+
+window = Tk()
+window.title("Kanye Says...")
+window.config(padx=50, pady=50)
+
+canvas = Canvas(width=300, height=414)
+background_img = PhotoImage(file="background.png")
+canvas.create_image(150, 207, image=background_img)
+quote_text = canvas.create_text(150, 207, text="Kanye Quote Goes HERE", width=250, font=("Arial", 30, "bold"), fill="white")
+canvas.grid(row=0, column=0)
+
+kanye_img = PhotoImage(file="kanye.png")
+kanye_button = Button(image=kanye_img, highlightthickness=0, command=get_quote)
+kanye_button.grid(row=1, column=0)
+
+
+
+window.mainloop()
