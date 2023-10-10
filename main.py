@@ -56,7 +56,7 @@ if abs(last_day_variation) > 0.02:
             body=f"{title}\n"
                  f"Headline: {new_data['title']}\n"
                  f"Brief: {new_data['description']}",
-            to='+573222261835'
+            to='+'
        )
 
 
