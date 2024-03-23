@@ -1,0 +1,26 @@
+<!--Now, we're creating HTML based on another template. This is just the contect that we'll be added to the specified
+block, following the "blocks title" and "block content" naming-->
+
+<!--This give us the template we'll be using for those blocks-->
+{% extends "base.html" %}
+<!--On the block title, we use "success"-->
+{% block title %}Access Denied{% endblock %}
+
+<!--This one is special, on the styling block, through the use of the super() function, we'll add something to the
+existing styling block, not just overwriting it, but adding something to the existing one. This works as well as
+using the super function on class inherence -->
+{% block styles %}
+   {{ super() }}
+   h1 {
+      color:red;
+   }
+{% endblock %}
+
+<!--This is what is going to be on the content block-->
+{% block content %}
+   <div class="container">
+	   <h1>Access Denied </h1>
+	   <iframe src="https://giphy.com/embed/1xeVd1vr43nHO" width="480" height="271" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+	   <p><a href="https://giphy.com/gifs/cheezburger-funny-dog-fails-1xeVd1vr43nHO">via GIPHY</a></p>
+   </div>
+{% endblock %}

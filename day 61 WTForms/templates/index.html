@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Secrets</title>
+  </head>
+  <body>
+
+  </body>
+</html>
+
+{% extends "base.html" %}
+<!--On the block title, we use "success"-->
+{% block title %}Secrets{% endblock %}
+<!--This is what is going to be on the content block-->
+{% block content %}
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Welcome</h1>
+      <p>Are you ready to discover my secret?</p>
+      <a class="btn btn-primary btn-lg" href=" {{ url_for('get_login') }} "
+        >Login</a
+      >
+    </div>
+  </div>
+{% endblock %}

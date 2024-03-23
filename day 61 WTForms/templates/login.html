@@ -1,0 +1,43 @@
+<!--Now, we're creating HTML based on another template. This is just the contect that we'll be added to the specified
+block, following the "blocks title" and "block content" naming-->
+
+<!--This give us the template we'll be using for those blocks-->
+{% extends "base.html" %}
+
+<!--On the block title, we use "success"-->
+{% block title %}Login<{% endblock %}
+
+<!--This is what is going to be on the content block-->
+{% block content %}
+	<div class="container">
+		<h1>Login</h1>
+		<form method="post" action="{{ url_for('get_login') }}" novalidate>
+<!--			Here we'll be using the object we created and sent, with its specific attributes -->
+			{{ login.csrf_token }}
+			<p>
+				{{ login.email.label }}<br>{{ login.email(size=30) }}
+<!--				We can analyse the errors on data_validation like this -->
+				{% for error in login.email.errors: %}
+					<span style="color: red">{{error}}</span>
+				{% endfor %}
+			</p>
+			<p>
+				{{ login.password.label }}<br>{{ login.password(size=30) }}
+				{% for error in login.password.errors: %}
+					<span style="color: red">{{error}}</span>
+				{% endfor %}
+			</p>
+			<p>
+				{{ login.submit() }}
+			</p>
+		</form>
+	</div>
+{% endblock %}
+
+
+<!--There a way to create all the form with just one line of code. for that, we import render_form from bootstrap:-->
+<!--{% from 'bootstrap5/form.html' import render_form %}-->
+<!--{{ render_form(login) }}-->
+
+<!--That will render all the login form, as we did under the form tag, just that line of code will replace
+the whole content of the form tag-->
